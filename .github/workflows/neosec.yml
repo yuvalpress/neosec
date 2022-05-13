@@ -40,23 +40,8 @@ jobs:
           profile: aws-profile
           region: us-east-1
 
-      - name: check
-        run: cat ~/.aws/config
-
-      - name: check
-        run: cat ~/.aws/credentials
-
-      - name: deploy
-        uses: peymanmortazavi/eks-helm-deploy@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-1"
-          cluster-name: neosec-exercise
-          config-files: ./charts/values.yaml
-          namespace: yuvalpress
-          name: yuvalpress-app
-          chart-path: ./charts/
+      - uses: azure/setup-helm@v1
+        id: install
 
       # - name: helm deploy
       #   uses: koslibpro/helm-eks-action@master
@@ -68,20 +53,6 @@ jobs:
 
       # - name: AWS CLI Install
       #   run: sudo apt update && sudo apt install awscli -y
-
-      # - name: Configure AWS credentials for EKS deployment
-      #   uses: aws-actions/configure-aws-credentials@v1.6.1
-      #   with:
-      #     aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
-      #     aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
-      #     aws-region: "us-east-1"
-
-      # - name: AWS Profile Set
-      #   uses: Fooji/create-aws-profile-action@v1
-      #   with:
-      #     profile: "aws-profile"
-      #     region: "us-east-1"
-
 
       # - name: Setup kubeconfig
       #   id: setup-kubeconfig
@@ -96,15 +67,15 @@ jobs:
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
-      - name: Deploy
-        uses: WyriHaximus/github-action-helm3@v2
-        with:
-          exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
-          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+      # - name: Deploy
+      #   uses: WyriHaximus/github-action-helm3@v2
+      #   with:
+      #     exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+      #     kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
 
-      # - name: Deploy To Cluster
-      #   run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
+      - name: Deploy To Cluster
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
         
