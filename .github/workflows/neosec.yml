@@ -32,8 +32,8 @@ jobs:
         uses: azure/setup-helm@v1
         id: install
 
-      - name: AWS CLI
-        uses: ItsKarma/aws-cli@v1.70.0
+      - name: AWS CLI Install
+        run: apt update && apt install awscli -y
         
       # - name: Kubectl tool installer
       #   uses: Azure/setup-kubectl@v2.1
