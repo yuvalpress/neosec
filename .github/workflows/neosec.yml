@@ -56,6 +56,7 @@ jobs:
           config-files: ./charts/values.yaml
           namespace: yuvalpress
           name: yuvalpress-app
+          chart-path: ./charts/
 
       # - name: helm deploy
       #   uses: koslibpro/helm-eks-action@master
