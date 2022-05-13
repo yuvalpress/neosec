@@ -49,10 +49,10 @@ jobs:
           region: "us-east-1"
 
 
-      - name: Setup kubeconfig
-        id: setup-kubeconfig
-        run: |
-          aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
+      # - name: Setup kubeconfig
+      #   id: setup-kubeconfig
+      #   run: |
+      #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
 
       - name: check
         run: cat ~/.aws/config
