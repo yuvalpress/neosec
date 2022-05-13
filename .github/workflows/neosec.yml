@@ -84,7 +84,7 @@ jobs:
       # - name: Export Kube Config
       #   run: |
       #     kubectl config view --raw >./config1
-      #     cat config1
+      #     cat config
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
