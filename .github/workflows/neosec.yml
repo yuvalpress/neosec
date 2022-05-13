@@ -78,6 +78,7 @@ jobs:
 
       - name: aws-cli
         run: pip3 install awscli
+        shell: bash
 
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
