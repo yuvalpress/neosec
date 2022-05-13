@@ -53,18 +53,6 @@ jobs:
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
-      # - name: deploy
-      #   uses: craftech-io/eks-helm-deploy-action@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-      #     cluster-name: neosec-exercise
-      #     config-files: ./charts/values.yaml
-      #     chart-path: ./charts/
-      #     namespace: yuvalpress
-      #     name: yuvalpress-app
-
       # - name: Helm on EKS (with eksctl)
       #   uses: tensor-hq/eksctl-helm-action@0.1.0
       #   with:
@@ -74,8 +62,10 @@ jobs:
       #     eks_cluster: neosec-exercise
 
       - name: Export Kube Config
-        run: kubectl config view --raw >~/.kube/config
+        run: |
+          kubectl config view --raw >./config1
+          cat config1
 
       - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
         
