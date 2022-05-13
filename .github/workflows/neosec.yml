@@ -27,14 +27,25 @@ jobs:
     steps:
       - name: 'Checkout'  # Clone Repo
         uses: 'actions/checkout@v1'
-        
-      - name: Deploy Helm To Kubernetes
-        uses: 'deliverybot/helm@master'
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
         with:
-          token: '${{ github.token }}'        
-          chart: 'neosec'
-          namespace: yuvalpress
-          release: yuvalpress-python-app
-          value-files: './charts/values.yaml'
+          version: 'latest'
+        id: install
+
+      - name: Deploy To Cluster
+        run: helm install ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig KUBECONFIG_FILE
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
+        
+      # - name: Deploy Helm To Kubernetes
+      #   uses: 'deliverybot/helm@master'
+      #   with:
+      #     token: '${{ github.token }}'        
+      #     chart: 'neosec'
+      #     namespace: yuvalpress
+      #     release: yuvalpress-python-app
+      #     value-files: './charts/values.yaml'
+      #   env:
+      #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
