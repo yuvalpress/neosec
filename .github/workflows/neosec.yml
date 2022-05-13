@@ -43,7 +43,7 @@ jobs:
           aws-region: "us-east-1"
 
       - name: Write profile aws
-        run: echo "[aws-profile]\nregion = us-east-1" > ~/.aws/config
+        run: sudo echo "[aws-profile]\nregion = us-east-1" > ~/.aws/config
 
       - name: Setup kubeconfig
         id: setup-kubeconfig
