@@ -76,6 +76,9 @@ jobs:
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
+      - name: aws-cli
+        run: pip3 install awscli
+
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
         with:
@@ -84,6 +87,3 @@ jobs:
 
       # - name: Deploy To Cluster
       #   run: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
-        
-      - name: test
-        run: echo success
