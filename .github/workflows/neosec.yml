@@ -28,9 +28,9 @@ jobs:
       - name: 'Checkout'  # Clone Repo
         uses: 'actions/checkout@v1'
 
-      # - name: Install Helm
-      #   uses: azure/setup-helm@v1
-      #   id: install
+      - name: Install Helm
+        uses: azure/setup-helm@v2
+        id: install
         
       # - name: Kubectl tool installer
       #   uses: Azure/setup-kubectl@v2.1
