@@ -36,7 +36,7 @@ jobs:
       #   run: sudo apt update && sudo apt install awscli -y
 
       - name: Configure AWS credentials for EKS deployment
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1.6.1
         with:
           aws-access-key-id: '${{ secrets.AWS_ACCESS_KEY_ID }}'
           aws-secret-access-key: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
