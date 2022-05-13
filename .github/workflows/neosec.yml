@@ -60,18 +60,18 @@ jobs:
       # - name: AWS CLI Install
       #   run: sudo apt update && sudo apt install awscli -y
 
-      # - name: Setup kubeconfig
-      #   id: setup-kubeconfig
-      #   run: |
-      #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
+      - name: Setup kubeconfig
+        id: setup-kubeconfig
+        run: |
+          aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
+
+      - name: Create Namespace
+        run: kubectl create ns yuvalpress | true
 
       - uses: azure/k8s-set-context@v2
         with:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBE_CONFIG }}'
-
-      - name: Create Namespace
-        run: kubectl create ns yuvalpress | true
 
       # - name: Create Config File
       #   run: |
@@ -79,7 +79,6 @@ jobs:
       #       cat config
       #       cat config | base64 -d > config
       #   shell: bash
-      #   id: my_string
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
@@ -87,11 +86,11 @@ jobs:
         run: pip3 install awscli
         shell: bash
 
-      # - name: Deploy 
-      #   uses: WyriHaximus/github-action-helm3@v2
-      #   with:
-      #     exec: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
-      #     kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+      - name: Deploy 
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+          # kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
-      - name: Deploy To Cluster
-        run: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+      # - name: Deploy To Cluster
+      #   run: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
