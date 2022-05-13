@@ -35,7 +35,7 @@ jobs:
         id: install
         
       - name: setup-awscli
-        uses: hsupu/setup-awscli@v1.0.0
+        run: pip3 install awscli
 
       # - name: Create Config File from Secret
       #   run: echo $KUBECONFIG_FILE > config
