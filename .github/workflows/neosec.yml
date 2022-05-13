@@ -52,7 +52,6 @@ jobs:
           chart: './charts/neosec'
           namespace: yuvalpress
           release: yuvalpress-app
-          helm: 'helm3'
           value-files: './charts/values.yaml'
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
