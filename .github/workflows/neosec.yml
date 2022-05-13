@@ -27,8 +27,8 @@ jobs:
     env:
      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-     AWS_PROFILE: aws-profile
-     AWS_REGION: us-east-1
+     AWS_PROFILE: ${{ secrets.AWS_PROFILE }}
+     AWS_REGION: ${{ secrets.AWS_REGION }}
     
     steps:
       - uses: actions/checkout@v2
@@ -42,7 +42,7 @@ jobs:
           kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
       - name: aws configure profile
-        run: aws configure set --profile aws-profile region us-east-1 
+        run: aws configure set --profile ${{ secrets.AWS_PROFILE }} region ${{ secrets.AWS_REGION }}
         shell: bash
 
       - name: Deploy To Cluster
