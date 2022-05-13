@@ -33,7 +33,9 @@ jobs:
         with:
           version: 'latest'
         id: install
-
+        
+      - name: Kubectl tool installer
+        uses: Azure/setup-kubectl@v2.1
 
       - name: Set AWS Profile
         uses: Fooji/create-aws-profile-action@v1
