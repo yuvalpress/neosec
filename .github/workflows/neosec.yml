@@ -22,7 +22,7 @@ jobs:
           tags: yuvalpress/app:latest
   
   deployHelm:
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
     
     steps:
       - name: 'Checkout'  # Clone Repo
