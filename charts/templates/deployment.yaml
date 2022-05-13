@@ -4,6 +4,8 @@ metadata:
   name: neosec-files-server
   labels:
     app: python-app
+  selector:
+    app: python-app
 spec:
   replicas: 2
   template:
