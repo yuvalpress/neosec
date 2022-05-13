@@ -83,9 +83,9 @@ jobs:
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
-      - name: aws-cli
-        run: pip3 install awscli
-        shell: bash
+      # - name: aws-cli
+      #   run: pip3 install awscli
+      #   shell: bash
 
       # - name: Deploy 
       #   uses: WyriHaximus/github-action-helm3@v2
