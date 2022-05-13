@@ -49,14 +49,20 @@ jobs:
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
-      - name: add cluster
-        run: kubectl config --kubeconfig=config set-context neosec-exercise --cluster=neosec-exercise
+      - name: Deploy Chart To EKS
+        uses: peymanmortazavi/eks-helm-deploy@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS__KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east1
+          cluster-name: neosec-exercise
+          config-files: ./charts/values.yaml
+          namespace: yuvalpress
+          name: yuvalpress-app
+          chart-path: ./charts/
 
-      - name: check cluster contexts
-        run: kubectl config get-contexts
-
-      - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
+      # - name: Deploy To Cluster
+      #   run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
         
       # - name: Deploy Helm To Kubernetes
       #   uses: 'deliverybot/helm@master'
