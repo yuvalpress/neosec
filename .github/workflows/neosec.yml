@@ -69,7 +69,7 @@ jobs:
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
         with:
-          exec: helm3 install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+          exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
           kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
 
