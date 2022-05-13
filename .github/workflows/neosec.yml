@@ -40,15 +40,15 @@ jobs:
         with:
           profile: aws-profile
           region: us-east-1
-          key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          key: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          secret: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 
       - name: check
         run: cat ~/.aws/config
 
       - name: Create Config File
         run: |
-            echo $KUBECONFIG_FILE > config
+            echo "$KUBECONFIG_FILE" > config
             cat config | base64 -d > config
         shell: bash
         env:
