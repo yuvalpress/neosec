@@ -33,7 +33,7 @@ jobs:
         id: install
 
       - name: AWS CLI Install
-        run: apt update && apt install awscli -y
+        run: sudo apt update && sudo apt install awscli -y
         
       # - name: Kubectl tool installer
       #   uses: Azure/setup-kubectl@v2.1
