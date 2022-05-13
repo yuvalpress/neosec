@@ -36,14 +36,14 @@ jobs:
 
       - name: Create Config File
         run: |
-            echo $KUBECONFIG_FILE >> src/config
+            echo $KUBECONFIG_FILE > config
             cat src/config
         shell: bash
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
       - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig src/config
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
         
       # - name: Deploy Helm To Kubernetes
       #   uses: 'deliverybot/helm@master'
