@@ -84,7 +84,7 @@ jobs:
         uses: WyriHaximus/github-action-helm3@v2
         with:
           exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
-          # kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
