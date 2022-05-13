@@ -71,6 +71,9 @@ jobs:
       #     # Name of your EKS cluster (i.e., from `eksctl get cluster`)
       #     eks_cluster: neosec-exercise
 
+      - name: Export Kube Config
+        run: export KUBECONFIG=./config
+
       - name: Deploy To Cluster
         run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
         
