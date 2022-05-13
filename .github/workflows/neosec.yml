@@ -28,23 +28,23 @@ jobs:
       - name: 'Checkout'  # Clone Repo
         uses: 'actions/checkout@v1'
 
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        id: install
+      # - name: Install Helm
+      #   uses: azure/setup-helm@v1
+      #   id: install
         
-      - name: Kubectl tool installer
-        uses: Azure/setup-kubectl@v2.1
+      # - name: Kubectl tool installer
+      #   uses: Azure/setup-kubectl@v2.1
 
-      - name: Set AWS Profile
-        uses: Fooji/create-aws-profile-action@v1
-        with:
-          profile: aws-profile
-          region: us-east-1
-          key: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          secret: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      # - name: Set AWS Profile
+      #   uses: Fooji/create-aws-profile-action@v1
+      #   with:
+      #     profile: aws-profile
+      #     region: us-east-1
+      #     key: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+      #     secret: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 
-      - name: check
-        run: cat ~/.aws/config
+      # - name: check
+      #   run: cat ~/.aws/config
 
       - name: Create Config File
         run: |
@@ -66,6 +66,11 @@ jobs:
           namespace: yuvalpress
           name: yuvalpress-app
 
+      - name: Deploy
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
 
       # - name: Helm on EKS (with eksctl)
