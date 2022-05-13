@@ -40,7 +40,7 @@ jobs:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
       - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig "$KUBECONFIG_FILE"
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
 
         
       # - name: Deploy Helm To Kubernetes
