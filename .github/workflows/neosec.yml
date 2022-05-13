@@ -47,8 +47,8 @@ jobs:
 
       - name: Create Config File
         run: |
-            echo $KUBECONFIG_FILE > ~/.kube/config
-            cat ~/.kube/config | base64 -d > ~/.kube/config
+            echo $KUBECONFIG_FILE > config
+            cat config | base64 -d > config
         shell: bash
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
@@ -61,11 +61,11 @@ jobs:
       #     # Name of your EKS cluster (i.e., from `eksctl get cluster`)
       #     eks_cluster: neosec-exercise
 
-      - name: Export Kube Config
-        run: |
-          kubectl config view --raw >./config1
-          cat config1
+      # - name: Export Kube Config
+      #   run: |
+      #     kubectl config view --raw >./config1
+      #     cat config1
 
       - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=~/.kube/config
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
         
