@@ -59,13 +59,13 @@ jobs:
       #   run: |
       #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
 
-      # - name: Create Config File
-      #   run: |
-      #       echo "$KUBECONFIG_FILE" > config
-      #       cat config | base64 -d > config
-      #   shell: bash
-      #   env:
-      #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
+      - name: Create Config File
+        run: |
+            echo "$KUBECONFIG_FILE" > config
+            cat config | base64 -d > config
+        shell: bash
+        env:
+          KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
 
       # - name: Deploy
       #   uses: WyriHaximus/github-action-helm3@v2
@@ -77,5 +77,5 @@ jobs:
         run: kubectl create ns yuvalpress | true
 
       - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig=./config
         
