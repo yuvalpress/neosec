@@ -32,8 +32,8 @@ jobs:
         uses: azure/setup-helm@v1
         id: install
 
-      - name: AWS CLI Install
-        run: sudo apt update && sudo apt install awscli -y
+      # - name: AWS CLI Install
+      #   run: sudo apt update && sudo apt install awscli -y
 
       - name: Configure AWS credentials for EKS deployment
         uses: aws-actions/configure-aws-credentials@v1
@@ -45,8 +45,8 @@ jobs:
       - name: AWS Profile Set
         uses: Fooji/create-aws-profile-action@v1
         with:
-          profile: aws-profile
-          region: us-east-1
+          profile: "aws-profile"
+          region: "us-east-1"
 
 
       - name: Setup kubeconfig
