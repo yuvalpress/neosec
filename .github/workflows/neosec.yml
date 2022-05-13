@@ -92,5 +92,8 @@ jobs:
       #     exec: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
       #     kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
+      - name: print
+        run: cat ~/.kube/config
+
       - name: Deploy To Cluster
         run: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
