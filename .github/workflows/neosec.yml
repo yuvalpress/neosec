@@ -25,12 +25,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: 'Checkout'  # Clone Repo
-        uses: 'actions/checkout@v1'
+      - uses: actions/checkout@v2
 
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        id: install
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: helm deploy
+        uses: koslibpro/helm-eks-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+        with:
+          command: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
 
       # - name: AWS CLI Install
       #   run: sudo apt update && sudo apt install awscli -y
@@ -67,18 +76,6 @@ jobs:
       #   shell: bash
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
-
-      # - name: deploy
-      #   uses: craftech-io/eks-helm-deploy-action@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-      #     cluster-name: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
-      #     config-files: ./charts/values.yaml
-      #     chart-path: ./charts/
-      #     namespace: yuvalpress
-      #     name: yuvalpress-app
 
       - name: Deploy
         uses: WyriHaximus/github-action-helm3@v2
