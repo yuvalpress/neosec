@@ -34,8 +34,8 @@ jobs:
           version: 'latest'
         id: install
         
-      - name: awscli Installation
-        uses: hannut91/aws-cli@1.18.65
+      - name: setup-awscli
+        uses: hsupu/setup-awscli@v1.0.0
 
       # - name: Create Config File from Secret
       #   run: echo $KUBECONFIG_FILE > config
