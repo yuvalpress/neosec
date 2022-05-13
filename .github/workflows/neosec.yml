@@ -28,73 +28,22 @@ jobs:
      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
      AWS_PROFILE: aws-profile
-    #  AWS-PROFILE: aws-profile
      AWS_REGION: us-east-1
     
     steps:
       - uses: actions/checkout@v2
 
-      # - name: AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-1
-
-      # - name: AWS Profile Set
-      #   uses: Fooji/create-aws-profile-action@v1
-      #   with:
-      #     profile: aws-profile
-      #     region: us-east-1
-
       - uses: azure/setup-helm@v1
         id: install
-
-      # - name: helm deploy
-      #   uses: koslibpro/helm-eks-action@master
-      #   env:
-      #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
-      #   with:
-      #     command: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
-
-
-      # - name: AWS CLI Install
-      #   run: sudo apt update && sudo apt install awscli -y
-
-      # - name: Setup kubeconfig
-      #   id: setup-kubeconfig
-      #   run: |
-      #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
-
-      # - name: Create Namespace
-      #   run: kubectl create ns yuvalpress | true
 
       - uses: azure/k8s-set-context@v2
         with:
           method: kubeconfig
           kubeconfig: '${{ secrets.KUBE_CONFIG }}'
 
-      # - name: Create Config File
-      #   run: |
-      #       echo $KUBECONFIG_FILE > config
-      #       cat config
-      #       cat config | base64 -d > config
-      #   shell: bash
-      #   env:
-      #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
-
       - name: aws configure profile
         run: aws configure set --profile aws-profile region us-east-1 
         shell: bash
-
-      # - name: Deploy 
-      #   uses: WyriHaximus/github-action-helm3@v2
-      #   with:
-      #     exec: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
-      #     kubeconfig: '${{ secrets.KUBE_CONFIG }}'
-
-      # - name: print
-      #   run: cat ~/.kube/config
 
       - name: Deploy To Cluster
         run: helm upgrade --install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
