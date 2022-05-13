@@ -46,12 +46,23 @@ jobs:
       - name: check
         run: cat ~/.aws/credentials
 
-      - name: helm deploy
-        uses: koslibpro/helm-eks-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+      - name: deploy
+        uses: peymanmortazavi/eks-helm-deploy@v1
         with:
-          command: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+          cluster-name: neosec-exercise
+          config-files: ./charts/values.yaml
+          namespace: yuvalpress
+          name: yuvalpress-app
+
+      # - name: helm deploy
+      #   uses: koslibpro/helm-eks-action@master
+      #   env:
+      #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+      #   with:
+      #     command: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
 
 
       # - name: AWS CLI Install
