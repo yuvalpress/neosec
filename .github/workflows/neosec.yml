@@ -60,10 +60,10 @@ jobs:
       # - name: AWS CLI Install
       #   run: sudo apt update && sudo apt install awscli -y
 
-      - name: Setup kubeconfig
-        id: setup-kubeconfig
-        run: |
-          aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
+      # - name: Setup kubeconfig
+      #   id: setup-kubeconfig
+      #   run: |
+      #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
