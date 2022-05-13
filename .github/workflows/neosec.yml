@@ -37,7 +37,7 @@ jobs:
       - name: Create Config File
         run: |
             echo $KUBECONFIG_FILE > config
-            cat config | base64 -d > aws_credentials.yaml
+            cat config | base64 -d > config
         shell: bash
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
