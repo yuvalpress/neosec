@@ -71,6 +71,7 @@ jobs:
       - name: Create Config File
         run: |
             echo $KUBECONFIG_FILE > config
+            cat config
             cat config | base64 -d > config
             MY_STRING=$(cat config)
             MY_STRING="${MY_STRING//'%'/'%25'}"
