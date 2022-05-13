@@ -28,6 +28,7 @@ jobs:
      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
      AWS_PROFILE: aws-profile
+     AWS-PROFILE: aws-profile
      AWS_REGION: us-east-1
     
     steps:
@@ -60,10 +61,10 @@ jobs:
       # - name: AWS CLI Install
       #   run: sudo apt update && sudo apt install awscli -y
 
-      # - name: Setup kubeconfig
-      #   id: setup-kubeconfig
-      #   run: |
-      #     aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
+      - name: Setup kubeconfig
+        id: setup-kubeconfig
+        run: |
+          aws eks --region us-east-1 update-kubeconfig --name neosec-exercise
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
