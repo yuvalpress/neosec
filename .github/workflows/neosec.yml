@@ -27,8 +27,8 @@ jobs:
     env:
      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-     AWS-PROFILE: aws-profile
-     AWS-REGION: us-east-1
+     AWS_PROFILE: aws-profile
+     AWS_REGION: us-east-1
     
     steps:
       - uses: actions/checkout@v2
