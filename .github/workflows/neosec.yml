@@ -70,5 +70,5 @@ jobs:
       #     eks_cluster: neosec-exercise
 
       - name: Deploy To Cluster
-        run: helm3 install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
+        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
         
