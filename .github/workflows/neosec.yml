@@ -34,19 +34,21 @@ jobs:
           version: 'latest'
         id: install
 
-      - name: Deploy To Cluster
-        run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig < $KUBECONFIG_FILE
-        env:
-            KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
+      # - name: Create Config File from Secret
+      #   run: echo $KUBECONFIG_FILE > config
 
-        
-      # - name: Deploy Helm To Kubernetes
-      #   uses: 'deliverybot/helm@master'
-      #   with:
-      #     token: '${{ github.token }}'        
-      #     chart: 'neosec'
-      #     namespace: yuvalpress
-      #     release: yuvalpress-python-app
-      #     value-files: './charts/values.yaml'
+      # - name: Deploy To Cluster
+      #   run: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig "$KUBECONFIG_FILE"
       #   env:
       #     KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
+        
+      - name: Deploy Helm To Kubernetes
+        uses: 'deliverybot/helm@master'
+        with:
+          token: '${{ github.token }}'        
+          chart: './charts/neosec'
+          namespace: yuvalpress
+          release: yuvalpress-app
+          value-files: './charts/values.yaml'
+        env:
+          KUBECONFIG_FILE: '${{ secrets.KUBE_CONFIG }}'
