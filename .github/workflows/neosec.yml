@@ -42,8 +42,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1"
 
-      - name: Write profile aws
-        run: sudo echo "[aws-profile]\nregion = us-east-1" > ~/.aws/config
+      - name: AWS Profile Set
+        uses: Fooji/create-aws-profile-action@v1
+        with:
+          profile: aws-profile
+          region: us-east-1
+
 
       - name: Setup kubeconfig
         id: setup-kubeconfig
@@ -81,20 +85,6 @@ jobs:
         with:
           exec: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml
           # kubeconfig: '${{ secrets.KUBE_CONFIG }}'
-
-
-      # - name: Helm on EKS (with eksctl)
-      #   uses: tensor-hq/eksctl-helm-action@0.1.0
-      #   with:
-      #     # Your command (kubectl or helm)
-      #     command: helm install yuvalpress-app ./charts/ --namespace yuvalpress -f ./charts/values.yaml --kubeconfig config
-      #     # Name of your EKS cluster (i.e., from `eksctl get cluster`)
-      #     eks_cluster: neosec-exercise
-
-      # - name: Export Kube Config
-      #   run: |
-      #     kubectl config view --raw >./config1
-      #     cat config
 
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
