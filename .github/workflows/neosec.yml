@@ -71,7 +71,43 @@ jobs:
       - uses: azure/k8s-set-context@v2
         with:
           method: kubeconfig
-          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+          kubeconfig: |
+            apiVersion: v1
+            clusters:
+            - cluster:
+                certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1EUXhPREV3TlRRME0xb1hEVE15TURReE5URXdOVFEwTTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTUdFCnBpcHE3NldSMkZ5WndzaUsvbTlZVE44OWJMaFJEcTJZY09WSWYyQ3Z1YnlFV2FPcTJhY2FIY2RHMXFsVVFIa0kKRTVYTVJ6SHFMYjYya2dvWEZnbTlHV0N5cVEvRXA1TkVKRnVEVzBHWSt1Yk12QW9NQmVZU1ZRWmhmaHJSVkdXZwp6R0lEOEV5T3VXZlltVVNhYm5nYU9kRk5ITVRJUnExZlpZUmRIQnBndDh4R3NrclYwY3JBcmRHSm95RS9aRFhiCkNJeW15OGdUdXNPRStWbkQxM1pzSFlJWHJRbHpmRlR4NnBvZmlpMUtqRXl6b3ZRaHkvVnR5U1QrV3h2UU1mSk8KN0ExaXc5SXdPQWFIWmlZYlpGMERmUnNyNzNDV05BdGVUa3NVendFMDJobHNrKy8veWRNTS9QQnZiWTFWMHEvMApROTRwZ3c1aFpXOElpL3ZzUEpFQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZHQ1NOYXdEQnRRN21sUW1ZdUhtRXFiYXp6SmNNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFDQjlZRXNSU1A2Qk1seE5XOVpocU5DV09oNmVpWWhqNjR6STVWREw0SkFkUmFFSThFMQpoSHFEZ3pGZ1Y0YS9VZWlsQkQ2Nkh2K2N0Nk9rc2JvNzZyNHJqREptbTNOVE5DMEg3VUVtTFVjM2pabmgxOUswCnlWNWk0anpIWVZIcmhLUUkvNFpFc0ppWlU3L1o1WnVQQ2wrMUk5UjRzcHZ4SXpnOEpoakkwTVRyaXN1bHVSc3gKVTJEYlRRWjh1MlJyb0JTblQ3dTFMZ0RZaTk1d1lxUDlkMjYxeWNlblE5VmJyODNQeDR4N0NGbEN3anM2bW9mQQoxZC9VdWhzYWU1MEFIbjk2bzg1TnZCSytvTUowNTljUlVsMk43TUNIdlBXMndLVVJjTmpoRTN0UWY3NDNqYXZuCmhvNW1VbXRXT0hYV0x4a0l0bFRZb0hnVEtId0twUmNwWUE0dwotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+                server: https://AB03FDEF04B5A25471EA8FB37DC719E9.gr7.us-east-1.eks.amazonaws.com
+              name: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+            - cluster:
+                server: ""
+              name: neosec-exercise
+            contexts:
+            - context:
+                cluster: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+                user: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+              name: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+              current-context: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+              kind: Config
+              preferences: {}
+              users:
+              - name: arn:aws:eks:us-east-1:064274872851:cluster/neosec-exercise
+                user:
+                  exec:
+                    apiVersion: client.authentication.k8s.io/v1alpha1
+                    args:
+                    - --region
+                    - us-east-1
+                    - eks
+                    - get-token
+                    - --cluster-name
+                    - neosec-exercise
+                    command: aws
+                    env:
+                    - name: AWS_PROFILE
+                      value: aws-profile
+                    interactiveMode: IfAvailable
+                    provideClusterInfo: false
+
 
       # - name: Create Config File
       #   run: |
