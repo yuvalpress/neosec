@@ -1,4 +1,4 @@
-name: NeoSec Workflow
+name: NeoSec
 
 on:
   push:
