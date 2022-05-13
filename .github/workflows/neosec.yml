@@ -68,6 +68,11 @@ jobs:
       - name: Create Namespace
         run: kubectl create ns yuvalpress | true
 
+      - uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: '${{ secrets.KUBE_CONFIG }}'
+
       - name: Create Config File
         run: |
             echo $KUBECONFIG_FILE > config
