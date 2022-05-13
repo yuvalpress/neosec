@@ -22,17 +22,11 @@ jobs:
           tags: yuvalpress/app:latest
   
   deployHelm:
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
     
     steps:
       - name: 'Checkout'  # Clone Repo
         uses: 'actions/checkout@v1'
-        
-      - name: Install Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: 'latest'
-        id: install
         
       - name: Deploy Helm To Kubernetes
         uses: 'deliverybot/helm@master'
