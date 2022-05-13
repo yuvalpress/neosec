@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: python-app
-          image: neosec:0.0.1
+          image: yuvalpress/app:latest
           env:
             - name: DIRECTORY
               value: {{ .Values.app.directory }}
