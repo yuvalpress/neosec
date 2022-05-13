@@ -19,4 +19,19 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: user/app:latest
+          tags: yuvalpress/app:latest
+  
+  deployHelm:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 'Checkout'  # Clone Repo
+        uses: 'actions/checkout@v1'
+        
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: 'latest'
+        id: install
+        
+      - name: Deploy Helm To Kubernetes
